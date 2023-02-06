@@ -1,6 +1,8 @@
 const express = require("express")
 const router = express.Router()
-const{create,update,read,remove} = require("../controllers/mainController")
+const{shelt,create,update,read,remove} = require("../controllers/mainController")
 
+
+router.get('/shelt',shelt)
 router.post('/create',create)
 module.exports = router

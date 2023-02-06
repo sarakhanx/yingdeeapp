@@ -28,5 +28,10 @@ exports.create=(req,res)=>{
         }
         res.json(orderdetail)
     })
-    } 
+    }
+    exports.shelt=(req,res)=>{
+        OrderJouneys.find({}).exec((err,orderdetail)=>{
+            res.json(orderdetail)
+        })
+    }
     
