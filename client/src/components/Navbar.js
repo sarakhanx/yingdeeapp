@@ -4,13 +4,13 @@ function Navbar() {
         <div className="">
         <nav className="navbar bg-light sticky-top">
   <div className="container-fluid">
-    <a className="navbar-brand" href="/">HOME</a>
+    <a className="navbar-brand" href="/">Preview Delivery Queue</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span className="navbar-toggler-icon"></span>
     </button>
     <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
-        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">BALLOON SUMMER</h5>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">

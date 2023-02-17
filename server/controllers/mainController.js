@@ -24,13 +24,20 @@ exports.create=(req,res)=>{
     }
     OrderJouneys.create({cusid,custelephone,destination,prepare,launchdate,slug},(err,orderdetail)=>{
         if(err){
-            res.status(400).json({error:"bad request"})
+            res.status(400).json({error:"Slug ซ้ำกัน แจ้งเตือนนี้มาจาก mainController"})
         }
         res.json(orderdetail)
     })
     }
     exports.shelt=(req,res)=>{
         OrderJouneys.find({}).exec((err,orderdetail)=>{
+            res.json(orderdetail)
+        })
+    }
+
+    exports.read = (req,res)=>{
+        const {slug} = req.params
+        OrderJouneys.findOne({slug}).exec((err,orderdetail)=>{
             res.json(orderdetail)
         })
     }
