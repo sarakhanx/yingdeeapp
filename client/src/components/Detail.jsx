@@ -23,7 +23,7 @@ function Detail (){
         <>
         <Navbar/>
         <div className="container mt-2 text-center"> 
-        {JSON.stringify(shelt._id)}
+        {JSON.stringify(shelt)}
          {/* ข้างในบันจุ ชื่อลูกค้า เบอร์โทรลูกค้า วันที่จัดส่ง สถานที่จัดส่งพร้อมโน๊ตLocation.maps จัดตะกร้าหรือยัง โน๊ตรายละเอียดบิลได้เล็กน้อย */}
 
          

@@ -41,4 +41,22 @@ exports.create=(req,res)=>{
             res.json(orderdetail)
         })
     }
-    
+
+    exports.taskRemove =(req,res)=>{
+        const {slug} = req.params
+        OrderJouneys.findOneAndRemove({slug}).exec((err,orderdetail)=>{
+            if(err) console.log(err)
+            res.json({
+                message:"delete completed!!"
+            })
+        })
+    }
+
+    exports.taskUpdate=(req,res)=>{
+        const {slug} = req.params
+        const {cusid,custelephone,destination,prepare,launchdate} = req.body
+        OrderJouneys.findOneAndUpdate({slug},{cusid,custelephone,destination,prepare,launchdate},{new:true}).exec((err,orderdetail)=>{
+             if(err) console.log(err)
+             res.json(orderdetail)
+        })
+    }

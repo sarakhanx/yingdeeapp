@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 function Navbar() {
     return (
         <>
         <div className="">
         <nav className="navbar bg-light sticky-top">
   <div className="container-fluid">
-    <a className="navbar-brand" href="/">Preview Delivery Queue</a>
+    <Link className="navbar-brand" to="/">หน้าแรก</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -16,19 +17,19 @@ function Navbar() {
       <div className="offcanvas-body">
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li className="nav-item">
-            <a className="nav-link active" aria-current="page" href="/">Home</a>
+            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
           </li>
           <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <Link className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               เมนูต่างๆ
-            </a>
+            </Link>
             <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href="/create">ลงทะเบียนข้อมูลคิวลูกค้า</a></li>
-              <li><a className="dropdown-item" href="/">เป็นปุ่มกลับหน้าแรกไปก่อน</a></li>
+              <li><Link className="dropdown-item" to="/create">ลงทะเบียนข้อมูลคิวลูกค้า</Link></li>
+              <li><Link className="dropdown-item" to="/shelt/deliveryIndex">แสดงคิวสินค้าทั้งหมด</Link></li>
               <li>
                 <hr className="dropdown-divider"/>
               </li>
-              <li><a className="dropdown-item" href="/">Something else here</a></li>
+              <li><Link className="dropdown-item" to="/">Something else here</Link></li>
             </ul>
           </li>
         </ul>

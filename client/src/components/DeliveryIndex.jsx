@@ -1,12 +1,12 @@
-import './App.css';
-import Navbar from './components/Navbar';
+import '../App.css';
+import Navbar from './Navbar';
 import {Link} from 'react-router-dom'
 import axios from 'axios';
 import { useState,useEffect,useParams } from 'react';
 import Swal from 'sweetalert2';
 
 
-function App() {
+function DeliveryIndex() {
 const [shelts,setShelts] = useState([]);
 const fetchShelt =()=>{
   axios.get(`${process.env.REACT_APP_API}/shelt`)
@@ -45,6 +45,30 @@ const onDragOver = e => {
   e.preventDefault();
 };
 
+const confirmDelete = (slug)=>{
+  Swal.fire({
+    title: "Confirm Delete",
+    icon:"warning",
+    showCancelButton:true
+  }).then((result)=>{
+    if(result.isConfirmed){
+      deleteTask(slug)
+      
+    }
+  })
+const deleteTask=(slug)=>{
+  axios.delete(`${process.env.REACT_APP_API}/shelt/${slug}`)
+  .then(response=>{
+    Swal.fire("DELETED!!",response.data.message,"success")
+    fetchShelt()
+  })
+  .catch(err=>console.log(err))
+}
+}
+
+
+
+
   return (
     <>
     <Navbar/>
@@ -69,19 +93,20 @@ const onDragOver = e => {
           draggable
         >
           <>
+          
           <Link to={`/shelt/${shelt.slug}`} state={{shelts}}>
             <h4 className='text-warning p-2'>{shelt.cusid}</h4>
           </Link>
           </>
           เบอร์โทรลูกค้า {shelt.custelephone} , สถานที่จัดส่ง {shelt.destination} วันที่จัดส่งหรือติดตั้ง :{shelt.launchdate}
+          <br />
+          <button className='btn btn-danger mb-2 mt-2' onClick={()=>confirmDelete(shelt.slug)}>delete</button>
         </li>
+        
+        
       ))}
     </ul>
-              </div>
-            </li>
-            {/* // *! task is here */}
-            <li id='task-column col'>
-              <div className='custom-scroll container'>
+    
               </div>
             </li>
           </ul>
@@ -91,4 +116,4 @@ const onDragOver = e => {
   );
 }
 
-export default App;
+export default DeliveryIndex;
