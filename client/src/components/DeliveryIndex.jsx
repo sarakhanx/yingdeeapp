@@ -4,14 +4,20 @@ import {Link} from 'react-router-dom'
 import axios from 'axios';
 import { useState,useEffect,useParams } from 'react';
 import Swal from 'sweetalert2';
+import renderHTML from 'react-render-html'
 
 
 function DeliveryIndex() {
+const [searchTask,setSearchTask] = useState('')
 const [shelts,setShelts] = useState([]);
+const [filter , setFilter] = useState([])
+
+
 const fetchShelt =()=>{
   axios.get(`${process.env.REACT_APP_API}/shelt`)
   .then(response=>{
-    setShelts(response.data)
+    setShelts(response.data);
+    setFilter(response.data);
   })
   .catch(err=>{
     Swal.fire('beep beep',err.response.data.error,'error')
@@ -21,6 +27,14 @@ const fetchShelt =()=>{
 useEffect(()=>{
   fetchShelt()
 },[])
+useEffect(()=>{
+  if(searchTask===''){
+    setFilter(shelts);
+  }else{
+    const filtered = shelts.filter(shelt => shelt.cusid.toLowerCase().includes(searchTask.toLowerCase()));
+      setFilter(filtered);
+  }
+},[searchTask,shelts]);
 
 
 const [selectedItem, setSelectedItem] = useState(null);
@@ -72,9 +86,17 @@ const deleteTask=(slug)=>{
   return (
     <>
     <Navbar/>
+    <div className="container text-center m-2">
+      <input type="text"
+      className='from-control'
+      placeholder='ค้นหา'
+      value={searchTask}
+      onChange={(e)=>{setSearchTask(e.target.value)}}
+      />
+    </div>
     <div className=' container text-center'>
-    <h1 className='text-center text-primary' >INDEX HOLA CHIGA</h1>
-   <Link to='/create'> <button className='btn btn-danger' > " CLICK HERE MATOFAKO YOU ARE CHIGAAAA "</button></Link>
+    <h1 className='text-center text-primary' > แอดมินสุดยอดนักลงคิว </h1>
+   <Link to='/create'> <button className='btn btn-danger' > " Click ที่นี่ เพื่อทำการบันทึกคิววันใหม่ "</button></Link>
     </div>
    
     <div className='col board-column'>
@@ -83,23 +105,15 @@ const deleteTask=(slug)=>{
               <div className='custom-scroll container'>
               <ul className='task-board col'>
                 <span>งานมาใหม่</span>
-      {shelts.map((shelt, index) => (
+      {filter.map((shelt) => (
         <li
-          className='task-item border-bottom'
-          key={index}
-          onDrop={e => onDrop(e, index)}
-          onDragOver={onDragOver}
-          onDragStart={e => onDragStart(e, index)}
-          draggable
-        >
-          <>
-          
-          <Link to={`/shelt/${shelt.slug}`} state={{shelts}}>
-            <h4 className='text-warning p-2'>{shelt.cusid}</h4>
+          className='task-item border-bottom text-start'>
+            <Link to={`/shelt/${shelt.slug}`} state={{shelts}}>
+            <h3 className='text-info p-2'>{shelt.cusid}</h3>
           </Link>
-          </>
-          เบอร์โทรลูกค้า {shelt.custelephone} , สถานที่จัดส่ง {shelt.destination} วันที่จัดส่งหรือติดตั้ง :{shelt.launchdate}
+          <h3>รายละเอียดตารางงานประจำวัน</h3> {renderHTML(shelt.destination)}
           <br />
+          <Link className='btn btn-success' to={`/shelt/taskupdate/${shelt.slug}`}>edit</Link>
           <button className='btn btn-danger mb-2 mt-2' onClick={()=>confirmDelete(shelt.slug)}>delete</button>
         </li>
         
