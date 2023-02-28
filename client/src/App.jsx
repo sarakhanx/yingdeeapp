@@ -9,6 +9,7 @@ function App() {
     
     <Link to='/shelt/deliveryIndex'><button className="btn btn-danger mt-5"> Delivery</button></Link>
     <Link to='https://production-calculate.netlify.app/' target={"_blank"}><button className="btn btn-warning mt-5"> โปรแกรมคำนวนการผลิตแบ็กดร็อป</button></Link>
+    <Link to='https://balloon-summer.web.app' target={"_blank"}><button className="btn btn-warning mt-5"> เว็บเมนู ส่งให้ลูกค้า</button></Link>
     
     
     

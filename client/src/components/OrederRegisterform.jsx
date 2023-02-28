@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import axios from "axios"
 import Swal from "sweetalert2"
 import renderHTML from 'react-render-html'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 
 
@@ -10,27 +12,30 @@ import renderHTML from 'react-render-html'
 function OrderRegister() {
     const [state,setState] = useState({
         cusid:"",
-        custelephone:"",
-        destination:"",
-        launchdate:""
+        custelephone:""
     })
-    const {cusid,custelephone,destination,launchdate} = state;
+    const {cusid,launchdate} = state;
+    const [destination,setDestination] = useState('')
 
     //! logtype เป็นพารามิเตอร์ที่เอาไว้เก็บค่าที่เปลี่ยนไปของ onChange เพื่อนำไปบันทึกลงdatabase
     const billRegister = logType=>e=>{
             setState({...state,[logType]:e.target.value});
     }
+    const submitQuill = (e)=>{
+        setDestination(e)
+    }
     const submited = (e)=>{
         e.preventDefault();
         axios.post(
-            `${process.env.REACT_APP_API}/create`,{cusid,custelephone,destination,launchdate})
+            `${process.env.REACT_APP_API}/create`,{cusid,destination,launchdate})
             .then(response => {
                 Swal.fire(
                     'Register Success !!',
                     'นายเองก็เป็นได้นะ คนลงคิวน่ะ',
                     'success'
                   )
-                  setState({...state,cusid:"",custelephone:"",destination:"",launchdate:""});
+                  setState({...state,cusid:'',launchdate:''});
+                  setDestination('')
                   
             }).catch(err=>{
                   Swal.fire('beep beep',err.response.data.error,'error')
@@ -53,31 +58,19 @@ function OrderRegister() {
                 defaultValue={cusid}
                 onChange={billRegister("cusid")}/>
                 <label htmlFor="customerName"
-                >ชื่อลูกค้า / customer name</label>
+                >วันเริ่มคิวงาน | DATE</label>
             </div>
-            <div className="form-floating p-1">
-                <input type="text"
-                className="form-control"
-                id="customerTelephone"
-                defaultValue={custelephone}
-                onChange={billRegister("custelephone")}/>
-                <label htmlFor="customerTelephone">เบอร์โทรลูกค้า / customer's contact</label>
-            </div>
-            <div className="form-floating p-1">
-                <textarea type="text"
-                className="form-control"
-                id="destination"
-                defaultValue={destination}
-                onChange={billRegister("destination")}></textarea>
-                <label htmlFor="destination">สถานที่จัดส่งส่งหรือรับสิยนค้า / destination</label>
-            </div>
+            <ReactQuill value={destination}
+                        onChange = {submitQuill}
+                        theme = "snow"
+                        className="form-floating p-1"/>
             <div className="form-floating p-1">
                 <input type="text"
                 className="form-control"
                 id="launchDate"
                 defaultValue={launchdate}
                 onChange={billRegister("launchdate")}/>
-                <label htmlFor="launchDate">วันที่จัดส่งหรือติดตั้ง / Date</label>
+                <label htmlFor="launchDate">ผู้จัดทำ | Updater</label>
             </div>
             <button type="submit" className="btn btn-success">Success</button>
             </form>
