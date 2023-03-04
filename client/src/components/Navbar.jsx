@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 
 function Navbar() {
-  const [search,setSearch] = useState('')
 
 
     return (
@@ -39,15 +37,6 @@ function Navbar() {
             </ul>
           </li>
         </ul>
-        <form className="d-flex mt-3" role="search">
-          <input className="form-control me-2"
-          type="search"
-          placeholder="ค้นหา"
-          aria-label="Search"
-          value={search}
-          onChange ={(e)=>{setSearch(e.target.value)}}/>
-          <button className="btn btn-outline-success" type="submit">Search</button>
-        </form>
       </div>
     </div>
   </div>

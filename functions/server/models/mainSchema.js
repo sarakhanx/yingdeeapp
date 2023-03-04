@@ -6,12 +6,10 @@ const orderJouney =mongoose.Schema({
         required:true
     },
     custelephone:{
-        type:String,
-        required:true
+        type:String
     },
     destination:{
-        type:{},
-        required:true
+        type:{}
     },
     prepare:{
         type:String

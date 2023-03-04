@@ -10,16 +10,13 @@ exports.create=(req,res)=>{
     if(!slug)slug=uuidv4();
     switch(true){
         case !cusid:
-            return res.status(400).json({error:"กรุณาใส่ชื่อลูกค้าด้วย"})
-            break;
-        case !custelephone:
-            return res.status(400).json({error:"ใส่เบอร์โทรลูกค้าด้วย"})
+            return res.status(400).json({error:"กรุณาใส่วันที่ของงานด้วยครับ"})
             break;
         case !destination:
-            return res.status(400).json({error:"ใส่สถานที่รับ/จัดส่งด้วย"})
+            return res.status(400).json({error:"ใส่รายละเอียดสถานที่รับ/จัดส่งด้วย"})
             break;
         case !launchdate:
-            return res.status(400).json({error:"ใส่วันผลิตด้วย"})
+            return res.status(400).json({error:"ใส่ชื่อผู้จัดทำด้วยครับ"})
             break;
     }
     OrderJouneys.create({cusid,custelephone,destination,prepare,launchdate,slug},(err,orderdetail)=>{

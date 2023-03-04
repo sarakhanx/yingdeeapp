@@ -1,8 +1,7 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import Navbar from "./Navbar";
 import axios from "axios"
 import Swal from "sweetalert2"
-import renderHTML from 'react-render-html'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
@@ -33,7 +32,7 @@ function OrderRegister() {
                     'Register Success !!',
                     'นายเองก็เป็นได้นะ คนลงคิวน่ะ',
                     'success'
-                  )
+                  );
                   setState({...state,cusid:'',launchdate:''});
                   setDestination('')
                   

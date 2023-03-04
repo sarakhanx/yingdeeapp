@@ -86,13 +86,15 @@ const deleteTask=(slug)=>{
   return (
     <>
     <Navbar/>
-    <div className="container text-center m-2">
+    <div className="container text-center mt-2">
+      <form action="">
       <input type="text"
       className='from-control'
       placeholder='ค้นหา'
       value={searchTask}
       onChange={(e)=>{setSearchTask(e.target.value)}}
       />
+      </form>
     </div>
     <div className=' container text-center'>
     <h1 className='text-center text-primary' > แอดมินสุดยอดนักลงคิว </h1>
@@ -105,8 +107,8 @@ const deleteTask=(slug)=>{
               <div className='custom-scroll container'>
               <ul className='task-board col'>
                 <span>งานมาใหม่</span>
-      {filter.map((shelt) => (
-        <li
+      {filter.map((shelt,index) => (
+        <li key={index}
           className='task-item border-bottom text-start'>
             <Link to={`/shelt/${shelt.slug}`} state={{shelts}}>
             <h3 className='text-info p-2'>{shelt.cusid}</h3>
