@@ -2,7 +2,7 @@ import '../App.css';
 import Navbar from './Navbar';
 import {Link} from 'react-router-dom'
 import axios from 'axios';
-import { useState,useEffect,useParams } from 'react';
+import { useState,useEffect} from 'react';
 import Swal from 'sweetalert2';
 import renderHTML from 'react-render-html'
 
@@ -37,27 +37,27 @@ useEffect(()=>{
 },[searchTask,shelts]);
 
 
-const [selectedItem, setSelectedItem] = useState(null);
+// const [selectedItem, setSelectedItem] = useState(null);
 
-const onDrop = (e, index) => {
-  e.preventDefault();
-  setShelts(prevShelts => {
-    const newShelts = [...prevShelts];
-    const temp = newShelts[selectedItem];
-    newShelts[selectedItem] = newShelts[index];
-    newShelts[index] = temp;
-    return newShelts;
-  });
-  setSelectedItem(null);
-};
+// const onDrop = (e, index) => {
+//   e.preventDefault();
+//   setShelts(prevShelts => {
+//     const newShelts = [...prevShelts];
+//     const temp = newShelts[selectedItem];
+//     newShelts[selectedItem] = newShelts[index];
+//     newShelts[index] = temp;
+//     return newShelts;
+//   });
+//   setSelectedItem(null);
+// };
 
-const onDragStart = (e, index) => {
-  setSelectedItem(index);
-};
+// const onDragStart = (e, index) => {
+//   setSelectedItem(index);
+// };
 
-const onDragOver = e => {
-  e.preventDefault();
-};
+// const onDragOver = e => {
+//   e.preventDefault();
+// };
 
 const confirmDelete = (slug)=>{
   Swal.fire({
@@ -84,8 +84,9 @@ const deleteTask=(slug)=>{
 
 
   return (
-    <>
+    <div div className=''>
     <Navbar/>
+    <div div className='container align-items-center'>
     <div className="container text-center mt-2">
       <form action="">
       <input type="text"
@@ -101,34 +102,27 @@ const deleteTask=(slug)=>{
    <Link to='/create'> <button className='btn btn-danger' > " Click ที่นี่ เพื่อทำการบันทึกคิววันใหม่ "</button></Link>
     </div>
    
-    <div className='col board-column'>
-          <ul id='task-row' className='text-center text-secondary p-0 row'>
-            <li id='task-column col'>
-              <div className='custom-scroll container'>
-              <ul className='task-board col'>
-                <span>งานมาใหม่</span>
+    <div className='row board-column'>
       {filter.map((shelt,index) => (
-        <li key={index}
-          className='task-item border-bottom text-start'>
+        <div key={index}
+          className='task-item border-bottom text-start col-md-4'>
             <Link to={`/shelt/${shelt.slug}`} state={{shelts}}>
             <h3 className='text-info p-2'>{shelt.cusid}</h3>
           </Link>
-          <h3>รายละเอียดตารางงานประจำวัน</h3> {renderHTML(shelt.destination)}
+          <h3 className=''>รายละเอียดตารางงานประจำวันที่</h3>
+          {renderHTML(shelt.destination.substring(0,30))}
           <br />
-          <Link className='btn btn-success' to={`/shelt/taskupdate/${shelt.slug}`}>edit</Link>
-          <button className='btn btn-danger mb-2 mt-2' onClick={()=>confirmDelete(shelt.slug)}>delete</button>
-        </li>
+          <Link className='btn btn-success m-1' to={`/shelt/taskupdate/${shelt.slug}`}>เพิ่มคิวหรือแก้ไข</Link>
+          <button className='btn btn-danger m-1 mb-2 mt-2' onClick={()=>confirmDelete(shelt.slug)}>ลบคิว</button>
+        </div>
         
         
       ))}
-    </ul>
     
               </div>
-            </li>
-          </ul>
-        </div>
         
-    </>
+    </div>
+    </div>
   );
 }
 
