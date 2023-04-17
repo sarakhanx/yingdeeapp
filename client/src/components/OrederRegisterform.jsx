@@ -45,8 +45,6 @@ function OrderRegister() {
     return (
         <>
         <Navbar/>
-        {/* //! {JSON.stringify(state)} /// เอาไว้logค่าออกมาดู */}
-
         <div className="container text-center mt-5">
           <h1 className='text-warning p-2 mb-1'>ลงทะเบียนข้อมูลคิวลูกค้า</h1>
             <form onSubmit={submited}>

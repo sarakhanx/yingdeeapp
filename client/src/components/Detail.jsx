@@ -23,17 +23,15 @@ function Detail (){
     return (
         <>
         <Navbar/>
-        <div className="container mt-2 text-center"> 
-         {/* ข้างในบันจุ ชื่อลูกค้า เบอร์โทรลูกค้า วันที่จัดส่ง สถานที่จัดส่งพร้อมโน๊ตLocation.maps จัดตะกร้าหรือยัง โน๊ตรายละเอียดบิลได้เล็กน้อย */}
-
-         
-        <div className="card text-bg-primary mb-3 container" style={{maxWidth: '18rem'}}>
-            <h1 className="card-header fs-3 text-warning">วันที่{shelt.cusid}</h1>
-            <div className="card-body">
-                {shelt.destination ? <p className='card-text customer-destination'>รายละเอียดงาน <br/> {renderHTML(shelt.destination)} </p>: null}
-            </div>
-        </div>
-        </div>
+<div className="container border border-light bg-light mt-2">
+    <h1 className="text-secondary">Report งานประจำวันที่ : {shelt.cusid}</h1>
+    <div className="border border-secondary border-top"></div>
+    <p className="text-center">รายละเอียดเวลางาน</p>
+    {shelt.destination ?<div className="text-start">{renderHTML(shelt.destination)}</div>: null}
+    <div className="text-muted text-center mt-3">{shelt.launchdate} <br/><div className="container">{shelt.updatedAt}</div> </div>
+    
+    {/* {JSON.stringify({shelt})} */}
+</div>
         </>
     )}
     export default Detail;

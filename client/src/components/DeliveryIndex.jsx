@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useState,useEffect} from 'react';
 import Swal from 'sweetalert2';
 import renderHTML from 'react-render-html'
+import { getUser} from '../services/authorize';
+import Footer from './Footer';
 
 
 function DeliveryIndex() {
@@ -16,7 +18,7 @@ const [filter , setFilter] = useState([])
 const fetchShelt =()=>{
   axios.get(`${process.env.REACT_APP_API}/shelt`)
   .then(response=>{
-    setShelts(response.data);
+    setShelts(response.data.reverse());
     setFilter(response.data);
   })
   .catch(err=>{
@@ -36,28 +38,6 @@ useEffect(()=>{
   }
 },[searchTask,shelts]);
 
-
-// const [selectedItem, setSelectedItem] = useState(null);
-
-// const onDrop = (e, index) => {
-//   e.preventDefault();
-//   setShelts(prevShelts => {
-//     const newShelts = [...prevShelts];
-//     const temp = newShelts[selectedItem];
-//     newShelts[selectedItem] = newShelts[index];
-//     newShelts[index] = temp;
-//     return newShelts;
-//   });
-//   setSelectedItem(null);
-// };
-
-// const onDragStart = (e, index) => {
-//   setSelectedItem(index);
-// };
-
-// const onDragOver = e => {
-//   e.preventDefault();
-// };
 
 const confirmDelete = (slug)=>{
   Swal.fire({
@@ -84,36 +64,41 @@ const deleteTask=(slug)=>{
 
 
   return (
-    <div div className=''>
+    <div className=''>
     <Navbar/>
-    <div div className='container align-items-center'>
+    <h1 className='text-center bg-warning p-2 text-secondary' >DELIVERY QUEUE</h1>
+    <div className='container align-items-center'>
     <div className="container text-center mt-2">
       <form action="">
-      <input type="text"
-      className='from-control'
-      placeholder='ค้นหา'
-      value={searchTask}
-      onChange={(e)=>{setSearchTask(e.target.value)}}
-      />
+      <div className="input-group input-group-sm mb-3">
+  <span className="input-group-text" id="inputGroup-sizing-sm">Search</span>
+  <input type="text"
+  className="form-control"
+  aria-label="Sizing example input"
+  aria-describedby="inputGroup-sizing-sm"
+  value={searchTask}
+  onChange={(e)=>{setSearchTask(e.target.value)}}/>
+  </div>
       </form>
     </div>
     <div className=' container text-center'>
-    <h1 className='text-center text-primary' > แอดมินสุดยอดนักลงคิว </h1>
-   <Link to='/create'> <button className='btn btn-danger' > " Click ที่นี่ เพื่อทำการบันทึกคิววันใหม่ "</button></Link>
     </div>
    
     <div className='row board-column'>
       {filter.map((shelt,index) => (
         <div key={index}
-          className='task-item border-bottom text-start col-md-4'>
-            <Link to={`/shelt/${shelt.slug}`} state={{shelts}}>
-            <h3 className='text-info p-2'>{shelt.cusid}</h3>
-          </Link>
-          <h3 className=''>รายละเอียดตารางงานประจำวันที่</h3>
-          {renderHTML(shelt.destination.substring(0,30))}
-          <br />
-          <Link className='btn btn-success m-1' to={`/shelt/taskupdate/${shelt.slug}`}>เพิ่มคิวหรือแก้ไข</Link>
-          <button className='btn btn-danger m-1 mb-2 mt-2' onClick={()=>confirmDelete(shelt.slug)}>ลบคิว</button>
+        className='task-item border border-light text-start col-md-4'>
+            
+            <Link to={`/shelt/${shelt.slug}`} state={{shelts}}><h3 className='text-dark fw-bold p-2'>{shelt.cusid}</h3>
+          
+          <h5 className='text-secondary'>รายละเอียดตารางงานประจำวันที่</h5>
+          <div className="container">{renderHTML(shelt.destination.substring(0,20))}</div>
+          <br /></Link>
+          {getUser() && (
+            <div><Link className='btn btn-success' to={`/shelt/taskupdate/${shelt.slug}`}>EDIT</Link>
+            <button className='btn btn-danger m-1 mb-2 mt-2' onClick={()=>confirmDelete(shelt.slug)}>DELETE</button></div>
+          )}
+          <p className="text-muted">{shelt.launchdate}</p>
         </div>
         
         
@@ -122,6 +107,7 @@ const deleteTask=(slug)=>{
               </div>
         
     </div>
+            <Footer/>
     </div>
   );
 }
