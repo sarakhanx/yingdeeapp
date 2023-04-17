@@ -5,6 +5,7 @@ const cors =require("cors")
 const mongoose = require("mongoose")
 require("dotenv").config()
 const taskRouter = require("./server/routes/taskRoute")
+const authRoute = require('./server/routes/authRoute')
 
 const app =express()
 
@@ -33,7 +34,9 @@ app.use(morgan("dev"))
 
 //route
 app.use('/api',taskRouter)
+app.use('/api',authRoute)
 
 
-
+// const port=process.env.PORT||8080
+// app.listen(port,()=>console.log(`start server in port ${port}`)).addListener
 exports.app = functions.https.onRequest(app);

@@ -4,7 +4,7 @@
   "scripts": {
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
-    "start": "npm run shell",
+    "start": "nodemon index.js",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -21,6 +21,7 @@
     "firebase-functions": "^3.18.0",
     "mongoose": "^6.9.2",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.22",
     "slugify": "^1.6.5",
     "uuidv4": "^6.2.13"
   },

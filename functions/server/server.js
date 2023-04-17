@@ -4,6 +4,7 @@ const cors =require("cors")
 const mongoose = require("mongoose")
 require("dotenv").config()
 const taskRouter = require("./routes/taskRoute")
+const authRoute = require('./routes/authRoute')
 
 const app =express()
 mongoose.set("strictQuery", false);
@@ -19,6 +20,7 @@ app.use(morgan("dev"))
 
 //route
 app.use('/api',taskRouter)
+app.use('/api',authRoute)
 
 
 
