@@ -44,7 +44,7 @@ exports.create=(req,res)=>{
         OrderJouneys.findOneAndRemove({slug}).exec((err,orderdetail)=>{
             if(err) console.log(err)
             res.json({
-                message:"delete completed!!"
+                message:"delete completed!! || ลบแล้วจ้า"
             })
         })
     }
