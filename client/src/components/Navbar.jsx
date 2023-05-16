@@ -39,8 +39,10 @@ return (
               <li><Link className="dropdown-item" to="/shelt/deliveryIndex">แสดงคิวสินค้าทั้งหมด</Link></li>
               {getUser()&&(<li><Link className="dropdown-item" to='/create'>Click ที่นี่ เพื่อทำการบันทึกคิววันใหม่</Link></li>)}
               <li>
+              {getUser() &&(<li><Link className="dropdown-item" to='/dashboard'>PROFILE</Link></li>)}
                 <hr className="dropdown-divider"/>
               </li>
+              
               {
                 !getUser() && (<li><Link className="dropdown-item" to="/login">LOGIN</Link></li>)
               }
@@ -51,6 +53,7 @@ return (
                           </button>
                         </li>
                       )}
+                      
             </ul>
           </li>
         </ul>

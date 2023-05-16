@@ -7,6 +7,7 @@ import EditTask from './components/EditTask'
 import LoginComponent from './components/LoginComponent'
 import AdminRoute from './AdminRoute'
 import ReportIssues from './components/ReportIssues'
+import Dashboard from './user-components/Dashboard'
 export default function Mroute() {
     return (
         
@@ -21,6 +22,7 @@ export default function Mroute() {
             <Route path="/shelt/taskupdate/:slug" exact element={<EditTask/>} />
             <Route path="/login" exact element={<LoginComponent/>} />
             <Route path='/reportissues' exact element={<ReportIssues/>}/>
+            <Route path='/dashboard' exact element={<Dashboard/>}/>
         </Routes>
         </BrowserRouter>
     )

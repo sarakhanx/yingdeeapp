@@ -14,6 +14,7 @@ export default function DeliveryIndex() {
   const [filter, setFilter] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 30;
+  const [user,setUser] = useState("")
 
   const fetchShelt = () => {
     axios
@@ -75,12 +76,26 @@ export default function DeliveryIndex() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filter.slice(indexOfFirstItem, indexOfLastItem);
 
+  //*greeting user
+  useEffect(()=>{
+    const user = sessionStorage.getItem('user')
+    if(user){
+      console.log(user)
+      setUser(user)
+    }else{
+      console.log('unknow problem occured')
+    }
+  },[user])
+
   return (
+    
     <div className="">
-      <Navbar />
+      {/* {JSON.stringify({user})} */}
+      <Navbar/>
       <h1 className="text-center bg-warning p-2 text-secondary">
         DELIVERY QUEUE
       </h1>
+      {user?(<p className="text-secondary text-center">สวัสดี {user}</p>):''}
       <div className="container align-items-center">
         <div className="container text-center mt-2">
           <form action="">
@@ -111,11 +126,11 @@ export default function DeliveryIndex() {
               className="task-item border border-light text-start col-md-4"
             >
               <Link to={`/shelt/${shelt.slug}`} >
-                <h3 className="text-dark fw-bold p-2">{shelt.cusid}</h3>
-                <h5 className="text-secondary">
+                <h3 className="text-primary fw-bold p-2">{shelt.cusid}</h3>
+                <p className="text-secondary">
                   รายละเอียดตารางงานประจำวันที่
-                </h5>
-                <div className="container">
+                </p>
+                <div className="container text-primary">
                   {renderHTML(shelt.destination.substring(0, 20))}
                 </div>
                 <br />
