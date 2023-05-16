@@ -20,17 +20,16 @@ function LoginComponent(){
         // axios.defaults.baseURL = 'http://localhost:8080';
         axios.post(`${process.env.REACT_APP_API}/login`,{username,password})
         .then(response =>{
-            authenticate(response,()=>navigate("/create"))
+            authenticate(response,()=>navigate("/shelt/deliveryIndex"))
         })
         .catch(err=>{
-            Swal.fire('not found users',err.response.data.error,'error')
+            Swal.fire('กรุณาใส่ชื่อจริงครับ',err.response.data.error,'error')
         })
-        console.table({username,password}) //will delete it after deployment
+        // console.table({username,password}) //will delete it after deployment
     }
     return (
         <>
     <Navbar/>
-    {JSON.stringify({username,password})}
         <form 
         className="container text-center"
         onSubmit={logInForm}>

@@ -16,7 +16,7 @@ return (
         <div className="">
         <nav className="navbar bg-warning sticky-top">
   <div className="container-fluid">
-    <Link className="navbar-brand" to="/">หน้าแรก</Link>
+    <Link className="navbar-brand" to="/shelt/deliveryIndex">หน้าแรก</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span className="navbar-toggler-icon"></span>
     </button>
