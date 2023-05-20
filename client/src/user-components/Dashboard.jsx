@@ -1,52 +1,56 @@
-import React from "react";
-import { useEffect, useState } from "react";
-// todo: ทำเสตทขึ้นมาเพื่อเก็บtask ลง local แล้วต้องเอา state มาดึงlocal ออกมาโชวด้วย
+import React, { useEffect, useState } from "react";
+
 const Dashboard = () => {
   const [user, setUser] = useState("");
-  const [task , setTask] = useState({
-    id:"",
-    note:""
-  })
-  const {id,note} = task;
+  const [task, setTask] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : { id: "", note: "" };
+  });
+
   useEffect(() => {
-    if (user) {
-    //   console.log("an error occured");
-    } else {
-      const username = sessionStorage.getItem("user");
-      console.log(username);
+    const username = sessionStorage.getItem("user");
+    if (username) {
       setUser(username);
+    } else {
+      console.log("An error occurred");
     }
-  }, [user]);
+  }, []);
 
-const setItems=(e)=>{
+  const setItems = (e) => {
     e.preventDefault();
-    setTask(task)
-}
-  useEffect(()=>{
-localStorage.setItem('tasks',JSON.stringify(task))
-console.log('err')
-  })
+    setTask({ id: task.id, note: task.note });
+  };
 
-  return (<>{JSON.stringify({ user })}
-    <form action="" onSubmit={()=>setItems}>
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(task));
+    console.log("Saved to localStorage");
+  }, [task]);
+
+  return (
+    <>
+      {JSON.stringify({ user })}
+      <form onSubmit={setItems}>
         <div className="container">
-            <input type="text"
+          <input
+            type="text"
             placeholder=""
-            value={id}
-            onChange={(e)=>setTask(e.target.value)}
-            /> <br />
-            <input type="text"
+            value={task.id}
+            onChange={(e) => setTask({ ...task, id: e.target.value })}
+          />
+          <br />
+          <input
+            type="text"
             placeholder=""
-            value={note}
-            onChange={(e)=>setTask(e.target.value)}
-            />
+            value={task.note}
+            onChange={(e) => setTask({ ...task, note: e.target.value })}
+          />
         </div>
-        <button
-        className="btn btn-success"
-        
-        > submit</button>
-    </form>
-  </>)
+        <button className="btn btn-success" type="submit">
+          Submit
+        </button>
+      </form>
+    </>
+  );
 };
 
 export default Dashboard;
